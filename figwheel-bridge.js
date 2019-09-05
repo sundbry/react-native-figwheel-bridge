@@ -122,21 +122,6 @@ function validateOptions(options) {
     }
 }
 
-// helper function to allow require at runtime
-function shimRequire(requireMap) {
-    // window get's compiled to the global object under React Native compile options
-    var oldRequire = window.require;
-    window.require = function (id) {
-        console.info("Requiring: " + id);
-        if (requireMap[id]) {
-            return requireMap[id];
-        }
-	if(oldRequire) {
-            return oldRequire(id);
-	}
-    };
-}
-
 function startApp(options){
     var config = Object.assign({renderFn:     'figwheel_rn_root',
 			        autoRefresh:  true},
@@ -152,6 +137,5 @@ function startApp(options){
 }
 
 module.exports = {
-    shimRequire: shimRequire,
     start: startApp
 };
